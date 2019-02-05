@@ -1,0 +1,7 @@
+{
+    "extends": "./eslintOption.js",
+    "rules": {
+        "no-var": 1,
+        "no-console": 1
+    }
+}
