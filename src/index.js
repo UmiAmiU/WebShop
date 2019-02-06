@@ -1,4 +1,5 @@
 import React from "react";
-import render from "react-dom";
+import ReactDOM from "react-dom";
+import RouterControl from "./components/RouterControl";
 
-render(<div />, document.getElementById("root"));
+ReactDOM.render(<RouterControl />, document.getElementById("root"));

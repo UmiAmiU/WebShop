@@ -81,7 +81,6 @@ module.exports = {
     "array-bracket-spacing": 2,
     "computed-property-spacing": 2,
     "func-call-spacing": 2,
-    "object-curly-spacing": 2,
     "semi-spacing": 2,
     "switch-colon-spacing": 2,
     "template-tag-spacing": 2,
