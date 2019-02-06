@@ -1,24 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Grid, Button, withStyles } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import { ValidatorForm } from "react-form-validator-core";
-import TextValidator from "../TextValidator";
-import dbManager from "../../dbManager";
-
-const styles = () => ({
-  formContainer: {
-    width: "400px"
-  }
-});
+import { Form } from "react-final-form";
+import LoginForm from "../LoginForm";
 
 class Authentication extends Component {
-  checkUser = () => {
-    this.state.users.forEach(user => {
-      if (
-        user.name === this.state.login &&
-        user.password === this.state.password
-      ) {
+  setUser = values => {
+    this.props.users.forEach(user => {
+      if (user.name === values.login && user.password === values.password) {
         localStorage.setItem(
           "user",
           JSON.stringify({ id: user.id, name: user.name })
@@ -28,69 +17,41 @@ class Authentication extends Component {
     });
   };
 
-  state = {
-    login: "",
-    password: "",
-    users: []
-  };
+  validate = values => {
+    const errors = {};
 
-  inputChange = name => event => {
-    this.setState({ [name]: event.target.value });
+    if (!this.props.users.some(user => user.name === values.login)) {
+      errors.login = "No such user";
+    }
+    if (!this.props.users.some(user => user.password === values.password)) {
+      errors.password = "Incorrect password";
+    }
+
+    return errors;
   };
 
   componentDidMount() {
-    dbManager.get("users").then(res => {
-      if (!res.error) {
-        this.setState({ users: res.data });
-      }
-    });
-    ValidatorForm.addValidationRule("isLoginExist", value => {
-      return this.state.users.some(user => user.name === value);
-    });
-    ValidatorForm.addValidationRule("isPasswordCorrect", value => {
-      return this.state.users.some(
-        user => user.name === this.state.login && user.password === value
-      );
-    });
+    const { getUsers } = this.props;
+
+    getUsers();
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <ValidatorForm onSubmit={this.checkUser}>
-        <Grid container direction="column" className={classes.formContainer}>
-          <TextValidator
-            label="Login"
-            margin="dense"
-            onChange={this.inputChange("login")}
-            name="login"
-            value={this.state.login}
-            validators={["required", "isLoginExist"]}
-            errorMessages={["this field is required", "no such user"]}
-          />
-          <TextValidator
-            label="Password"
-            type="password"
-            margin="dense"
-            onChange={this.inputChange("password")}
-            name="password"
-            value={this.state.password}
-            validators={["required", "isPasswordCorrect"]}
-            errorMessages={["this field is required", "incorrect password"]}
-          />
-          <Button variant="contained" type="submit">
-            Submit
-          </Button>
-        </Grid>
-      </ValidatorForm>
+      <Form
+        onSubmit={this.setUser}
+        validate={this.validate}
+        render={props => <LoginForm {...props} />}
+      />
     );
   }
 }
 
 Authentication.propTypes = {
   classes: PropTypes.object,
-  history: PropTypes.object
+  getUsers: PropTypes.func,
+  history: PropTypes.object,
+  users: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default withStyles(styles)(withRouter(Authentication));
+export default withRouter(Authentication);
