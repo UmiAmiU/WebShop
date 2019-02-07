@@ -13,7 +13,7 @@ const fetchUsersData = () => {
       .get("users")
       .then(
         res => dispatch(fetchUsersSuccess(res.data)),
-        res => dispatch(fetchUsersError(res.errorMessage))
+        res => dispatch(fetchUsersError(res))
       );
   };
 };
