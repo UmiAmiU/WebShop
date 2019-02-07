@@ -5,42 +5,25 @@ import { Form } from "react-final-form";
 import LoginForm from "../LoginForm";
 
 class Authentication extends Component {
-  setUser = values => {
-    this.props.users.forEach(user => {
-      if (user.name === values.login && user.password === values.password) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ id: user.id, name: user.name })
-        );
-        this.props.history.push("/");
-      }
-    });
-  };
+  setUser = values => this.props.getUser(values.login, values.password);
 
-  validate = values => {
-    const errors = {};
+  componentDidUpdate() {
+    const { authUser, user } = this.props;
 
-    if (!this.props.users.some(user => user.name === values.login)) {
-      errors.login = "No such user";
+    if (user.name !== "" && user.password !== "") {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id: user.id, name: user.name })
+      );
+      authUser(user.id, user.name);
+      this.props.history.push("/");
     }
-    if (!this.props.users.some(user => user.password === values.password)) {
-      errors.password = "Incorrect password";
-    }
-
-    return errors;
-  };
-
-  componentDidMount() {
-    const { getUsers } = this.props;
-
-    getUsers();
   }
 
   render() {
     return (
       <Form
         onSubmit={this.setUser}
-        validate={this.validate}
         render={props => <LoginForm {...props} />}
       />
     );
@@ -48,10 +31,11 @@ class Authentication extends Component {
 }
 
 Authentication.propTypes = {
+  authUser: PropTypes.func,
   classes: PropTypes.object,
-  getUsers: PropTypes.func,
+  getUser: PropTypes.func,
   history: PropTypes.object,
-  users: PropTypes.arrayOf(PropTypes.object)
+  user: PropTypes.object
 };
 
 export default withRouter(Authentication);
