@@ -1,13 +1,15 @@
 import { connect } from "react-redux";
-import fetchUsersData from "../middlewares/fetchUsersData";
+import fetchUser from "../middlewares/fetchUser";
+import { auth } from "../actions";
 import Authentication from "../../components/Authentication";
 
 const mapStateToProps = state => ({
-  users: state.users
+  user: state.user
 });
 
 const mapDispatchToProps = dispatch => ({
-  getUsers: () => dispatch(fetchUsersData())
+  authUser: (id, name) => dispatch(auth(id, name)),
+  getUser: (name, password) => dispatch(fetchUser(name, password))
 });
 
 export default connect(
