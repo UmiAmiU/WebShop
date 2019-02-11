@@ -63,6 +63,9 @@ class Manager {
         .where(filter[4].left, filter[4].option, filter[4].right)
         .get()
         .then(res => {
+          if (res.empty) {
+            throw new Error("No such user");
+          }
           const data = {
             id: res.docs[0].id,
             ...res.docs[0].data()
