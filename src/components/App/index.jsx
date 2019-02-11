@@ -11,9 +11,8 @@ class App extends Component {
     if (!userInfo) {
       return null;
     }
-    checkUser(userInfo.name, userInfo.id);
 
-    return null;
+    checkUser(userInfo.name, userInfo.id);
   }
 
   componentDidUpdate() {
