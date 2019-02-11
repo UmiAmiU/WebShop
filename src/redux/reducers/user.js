@@ -1,13 +1,15 @@
-const user = (state = false, action) => {
+const initialState = { id: "", name: "", password: "" };
+
+const user = (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_USER_START": {
-      return state;
+      return { ...initialState };
     }
     case "FETCH_USER_SUCCESS": {
-      return true;
+      return { ...action.data };
     }
     case "FETCH_USER_ERROR": {
-      return false;
+      return { ...initialState };
     }
     default: {
       return state;

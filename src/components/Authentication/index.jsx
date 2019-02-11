@@ -8,13 +8,14 @@ class Authentication extends Component {
   setUser = values => this.props.getUser(values.login, values.password);
 
   componentDidUpdate() {
-    const { isLogedIn, user } = this.props;
+    const { authUser, user } = this.props;
 
-    if (isLogedIn) {
+    if (user.name !== "" && user.password !== "") {
       localStorage.setItem(
         "user",
         JSON.stringify({ id: user.id, name: user.name })
       );
+      authUser(user.id, user.name);
       this.props.history.push("/");
     }
   }
@@ -34,7 +35,6 @@ Authentication.propTypes = {
   classes: PropTypes.object,
   getUser: PropTypes.func,
   history: PropTypes.object,
-  isLogedIn: PropTypes.bool,
   user: PropTypes.object
 };
 
