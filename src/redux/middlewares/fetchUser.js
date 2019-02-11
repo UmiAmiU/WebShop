@@ -1,5 +1,10 @@
 import dbManager from "../../dbManager";
-import { fetchUserStart, fetchUserSuccess, fetchUserError } from "../actions";
+import {
+  fetchUserStart,
+  fetchUserSuccess,
+  fetchUserError,
+  auth
+} from "../actions";
 
 const fetchUser = (name, password) => {
   return dispatch => {
@@ -12,7 +17,10 @@ const fetchUser = (name, password) => {
         { left: "password", option: "==", right: password }
       ])
       .then(
-        res => dispatch(fetchUserSuccess(res.data)),
+        res => {
+          dispatch(fetchUserSuccess(!res.error));
+          dispatch(auth(res.data.id, res.data.name));
+        },
         res => dispatch(fetchUserError(res))
       );
   };
