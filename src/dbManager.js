@@ -41,6 +41,40 @@ class Manager {
     });
   };
 
+  getFilteredDoc = (collName, sessionId) => {
+    return new Promise((resolve, reject) => {
+      this.db
+        .collection(collName)
+        .doc(sessionId)
+        .get()
+        .then(res => {
+          if (res.exists) {
+            const data = {
+              id: res.id,
+              ...res.data()
+            };
+
+            resolve({
+              data,
+              error: false,
+              errorMessage: ""
+            });
+          } else {
+            throw new Error("No such document");
+          }
+        })
+        .catch(error => {
+          reject(
+            new Error({
+              data: [],
+              error: true,
+              errorMessage: error
+            })
+          );
+        });
+    });
+  };
+
   getFiltered = (collName, filterOptions) => {
     const filter = [];
     const maxFilters = 5;
