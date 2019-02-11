@@ -16,8 +16,7 @@ export const fetchUserStart = () => ({
   type: "FETCH_USER_START"
 });
 
-export const fetchUserSuccess = data => ({
-  data,
+export const fetchUserSuccess = () => ({
   type: "FETCH_USER_SUCCESS"
 });
 
