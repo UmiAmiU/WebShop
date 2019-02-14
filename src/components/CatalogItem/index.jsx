@@ -30,9 +30,9 @@ class CatalogItem extends Component {
   }
 
   render() {
-    const { classes, data} = this.props;
-    const TITLE_SIZE = 27;
-    const DESCRIPTION_SIZE = 140;
+    const { classes, data } = this.props;
+    const TITLE_MAX_SIZE = 27;
+    const DESCRIPTION_MAX_SIZE = 140;
 
     return (
       <Card className={classes.card}>
@@ -49,10 +49,10 @@ class CatalogItem extends Component {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {CatalogItem.splitText(data.name, TITLE_SIZE)}
+              {CatalogItem.splitText(data.name, TITLE_MAX_SIZE)}
             </Typography>
             <Typography component="p">
-              {CatalogItem.splitText(data.description, DESCRIPTION_SIZE)}
+              {CatalogItem.splitText(data.description, DESCRIPTION_MAX_SIZE)}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -88,18 +88,3 @@ CatalogItem.propTypes = {
 };
 
 export default withStyles(styles)(CatalogItem);
-
-/*
- *        <Popover
- * anchorOrigin={{
- * horizontal: "center",
- * vertical: "bottom"
- * }}
- * transformOrigin={{
- * horizontal: "center",
- * vertical: "top"
- * }}
- * >
- * The content of the Popover.
- *</Popover>
- */
