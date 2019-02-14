@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
-import CatalogItem from "../CatalogItem";
+import CatalogItem from "../../redux/containers/CatalogItem";
 import data from "../../goods";
 
 class ContentList extends Component {

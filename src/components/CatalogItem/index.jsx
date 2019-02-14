@@ -10,7 +10,6 @@ import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
-import Popover from '@material-ui/core/Popover';
 
 const styles = {
   card: {
@@ -22,7 +21,7 @@ const styles = {
 };
 
 class CatalogItem extends Component {
-  splitText(string, size) {
+  static splitText(string, size) {
     if (string.length > size) {
       return `${string.slice(0, size - 3)}...`;
     }
@@ -31,38 +30,29 @@ class CatalogItem extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, data} = this.props;
+    const TITLE_SIZE = 27;
+    const DESCRIPTION_SIZE = 140;
 
     return (
       <Card className={classes.card}>
-        <Typography color="textSecondary" component="p">
-          Код: {this.props.data.code}
-        </Typography>
-        <Popover
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-        >
-          The content of the Popover.
-        </Popover>
+        {this.props.isUserLogged && (
+          <Typography color="textSecondary" component="p">
+            Код: {data.code}
+          </Typography>
+        )}
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={`data:image/png;base64,${this.props.data.img}`}
-            title={this.props.data.name}
+            image={`data:image/png;base64,${data.img}`}
+            title={data.name}
           />
-
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {this.splitText(this.props.data.name, 27)}
+              {CatalogItem.splitText(data.name, TITLE_SIZE)}
             </Typography>
             <Typography component="p">
-              {this.splitText(this.props.data.description, 140)}
+              {CatalogItem.splitText(data.description, DESCRIPTION_SIZE)}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -79,7 +69,7 @@ class CatalogItem extends Component {
             alignItems="center"
           >
             <Typography variant="h6" component="h2">
-              {this.props.data.price} rub
+              {data.price} rub
             </Typography>
             <Button variant="contained" size="medium" color="secondary">
               Купить
@@ -93,7 +83,23 @@ class CatalogItem extends Component {
 
 CatalogItem.propTypes = {
   classes: PropTypes.object,
-  data: PropTypes.object
+  data: PropTypes.object,
+  isUserLogged: PropTypes.bool
 };
 
 export default withStyles(styles)(CatalogItem);
+
+/*
+ *        <Popover
+ * anchorOrigin={{
+ * horizontal: "center",
+ * vertical: "bottom"
+ * }}
+ * transformOrigin={{
+ * horizontal: "center",
+ * vertical: "top"
+ * }}
+ * >
+ * The content of the Popover.
+ *</Popover>
+ */
