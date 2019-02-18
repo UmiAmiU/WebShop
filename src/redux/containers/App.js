@@ -3,7 +3,7 @@ import App from "../../components/App";
 import fetchUserSession from "../middlewares/fetchUserSession";
 
 const mapStateToProps = state => ({
-  isUserLogged: state.user,
+  isLogged: state.user,
   user: state.auth
 });
 
