@@ -172,6 +172,66 @@ class Manager {
     });
   };
 
+  // eslint-disable-next-line max-params
+  addArray = (collName, docId, fieldName, data) => {
+    return new Promise((resolve, reject) => {
+      this.db
+        .collection(collName)
+        .doc(docId)
+        .update({
+          [fieldName]: firebase.firestore.FieldValue.arrayUnion(
+            JSON.stringify(data)
+          )
+        })
+        .then(() =>
+          resolve({
+            data: [],
+            error: false,
+            errorMessage: ""
+          })
+        )
+        .catch(error =>
+          reject(
+            new Error({
+              data: [],
+              error: true,
+              errorMessage: `Updating error, ${error}`
+            })
+          )
+        );
+    });
+  };
+
+  // eslint-disable-next-line max-params
+  deleteArray = (collName, docId, fieldName, data) => {
+    return new Promise((resolve, reject) => {
+      this.db
+        .collection(collName)
+        .doc(docId)
+        .update({
+          [fieldName]: firebase.firestore.FieldValue.arrayRemove(
+            JSON.stringify(data)
+          )
+        })
+        .then(() =>
+          resolve({
+            data: [],
+            error: false,
+            errorMessage: ""
+          })
+        )
+        .catch(error =>
+          reject(
+            new Error({
+              data: [],
+              error: true,
+              errorMessage: `Updating error, ${error}`
+            })
+          )
+        );
+    });
+  };
+
   delete = (collName, docId) => {
     return new Promise((resolve, reject) => {
       this.db

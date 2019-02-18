@@ -37,9 +37,7 @@ class CatalogItem extends Component {
     return (
       <Card className={classes.card}>
         {this.props.isUserLogged && (
-          <Typography color="textSecondary" component="p">
-            Код: {data.code}
-          </Typography>
+          <Typography color="textPrimary">Код: {data.code}</Typography>
         )}
         <CardActionArea>
           <CardMedia
@@ -48,10 +46,10 @@ class CatalogItem extends Component {
             title={data.name}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h5">
               {CatalogItem.splitText(data.name, TITLE_MAX_SIZE)}
             </Typography>
-            <Typography component="p">
+            <Typography>
               {CatalogItem.splitText(data.description, DESCRIPTION_MAX_SIZE)}
             </Typography>
           </CardContent>
@@ -68,9 +66,7 @@ class CatalogItem extends Component {
             justify="space-between"
             alignItems="center"
           >
-            <Typography variant="h6" component="h2">
-              {data.price} rub
-            </Typography>
+            <Typography variant="h6">{data.price} rub</Typography>
             <Button variant="contained" size="medium" color="secondary">
               Купить
             </Button>

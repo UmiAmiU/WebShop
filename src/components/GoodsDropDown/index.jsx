@@ -9,9 +9,17 @@ import {
   Divider,
   Collapse,
   Paper,
-  Button
+  Button,
+  Typography,
+  withStyles
 } from "@material-ui/core";
 import PropTypes from "prop-types";
+
+const styles = ({ palette }) => ({
+  textWhite: {
+    color: palette.primary.contrastText
+  }
+});
 
 class GoodsDropDown extends Component {
   openMenu = () => {
@@ -31,7 +39,7 @@ class GoodsDropDown extends Component {
   }
 
   render() {
-    const { goods } = this.props;
+    const { goods, classes } = this.props;
     const { open } = this.state;
 
     return (
@@ -41,9 +49,11 @@ class GoodsDropDown extends Component {
           onClick={this.openMenu}
           fullWidth
         >
-          Goods catalog
+          <Typography className={classes.textWhite} variant="h6">
+            Goods catalog
+          </Typography>
         </Button>
-        <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
+        <Popper open={open} anchorEl={this.anchorEl} transition>
           {() => (
             <Collapse in={open} timeout={500}>
               <Paper onMouseLeave={this.closeMenu}>
@@ -69,8 +79,9 @@ class GoodsDropDown extends Component {
 }
 
 GoodsDropDown.propTypes = {
+  classes: PropTypes.object,
   getGoods: PropTypes.func,
   goods: PropTypes.array
 };
 
-export default GoodsDropDown;
+export default withStyles(styles)(GoodsDropDown);
