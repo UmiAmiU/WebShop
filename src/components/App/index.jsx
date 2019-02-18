@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-
+import TopMenu from "../../redux/containers/TopMenu";
 import ContentList from "../ContentList";
 
 const theme = createMuiTheme({
@@ -19,16 +18,20 @@ const theme = createMuiTheme({
 
 class App extends Component {
   componentDidMount() {
-    const { checkUser } = this.props;
-    const userInfo = JSON.parse(localStorage.getItem("user")) || {};
+    const { checkUser, isLogged } = this.props;
 
-    checkUser(userInfo.name, userInfo.id);
+    if (!isLogged) {
+      const userInfo = JSON.parse(localStorage.getItem("user")) || {};
+
+      checkUser(userInfo.name, userInfo.id);
+    }
   }
 
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Grid container>
+        <Grid container alignItems="center" justify="space-around">
+          <TopMenu />
           <div>Hello</div>
           <Link to="/login">LoginPage</Link>
 
@@ -40,7 +43,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-  checkUser: PropTypes.func
+  checkUser: PropTypes.func,
+  isLogged: PropTypes.bool
 };
 
 export default App;

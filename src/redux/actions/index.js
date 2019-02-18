@@ -25,6 +25,20 @@ export const fetchUserError = error => ({
   type: "FETCH_USER_ERROR"
 });
 
+export const fetchGoodsStart = () => ({
+  type: "FETCH_GOODS_START"
+});
+
+export const fetchGoodsSuccess = data => ({
+  data,
+  type: "FETCH_GOODS_SUCCESS"
+});
+
+export const fetchGoodsError = error => ({
+  error,
+  type: "FETCH_GOODS_ERROR"
+});
+
 export const auth = (id, name) => ({
   id,
   name,
