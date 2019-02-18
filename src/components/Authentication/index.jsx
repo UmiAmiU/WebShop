@@ -8,14 +8,14 @@ class Authentication extends Component {
   setUser = values => this.props.getUser(values.login, values.password);
 
   componentDidUpdate() {
-    const { isUserLogged, user } = this.props;
+    const { isUserLogged, user, history } = this.props;
 
     if (isUserLogged) {
       localStorage.setItem(
         "user",
         JSON.stringify({ id: user.id, name: user.name })
       );
-      this.props.history.push("/");
+      history.push("/");
     }
   }
 

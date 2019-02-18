@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
+import { withRouter } from "react-router-dom";
 
 const styles = {
   card: {
@@ -21,6 +22,12 @@ const styles = {
 };
 
 class CatalogItem extends Component {
+  redirect = () => {
+    const { history, data } = this.props;
+
+    history.push(`/product/${data.code}/`);
+  };
+
   static splitText(string, size) {
     if (string.length > size) {
       return `${string.slice(0, size - 3)}...`;
@@ -44,6 +51,7 @@ class CatalogItem extends Component {
             className={classes.media}
             image={`data:image/png;base64,${data.img}`}
             title={data.name}
+            onClick={this.redirect}
           />
           <CardContent>
             <Typography gutterBottom variant="h5">
@@ -80,7 +88,8 @@ class CatalogItem extends Component {
 CatalogItem.propTypes = {
   classes: PropTypes.object,
   data: PropTypes.object,
+  history: PropTypes.object,
   isUserLogged: PropTypes.bool
 };
 
-export default withStyles(styles)(CatalogItem);
+export default withRouter(withStyles(styles)(CatalogItem));
