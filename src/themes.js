@@ -18,7 +18,7 @@ export const themes = {
       },
       background: {
         paper: "#f2f2f2",
-        default: "#f2f2f2"
+        default: "#fff"
       },
       text: {
         primary: "rgba(0, 0, 0, 0.87)",

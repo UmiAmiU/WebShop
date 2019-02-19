@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
 import ItemPage from "../../components/ItemPage";
-import fetchGoods from "../middlewares/fetchGoods";
 
 function getExactItem(goods, id) {
   const exactItems = goods.reduce((newArr, elem) => {
@@ -17,11 +16,4 @@ const mapStateToProps = (state, ownProps) => ({
   isLogged: state.user
 });
 
-const mapDispatchToProps = dispatch => ({
-  getGoods: () => dispatch(fetchGoods())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ItemPage);
+export default connect(mapStateToProps)(ItemPage);
