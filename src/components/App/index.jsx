@@ -1,20 +1,8 @@
 import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
 import PropTypes from "prop-types";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import TopMenu from "../../redux/containers/TopMenu";
-import ContentList from "../ContentList";
-
-const theme = createMuiTheme({
-  palette: {
-    background: {
-      paper: "#F2F2F2"
-    },
-    primary: { main: "#144766" },
-    secondary: { main: "#7F0414" }
-  },
-  typography: { useNextVariants: true }
-});
+import ContentList from "../../redux/containers/ContentList";
 
 class App extends Component {
   componentDidMount() {
@@ -29,15 +17,10 @@ class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
-        <Grid container alignItems="center" justify="space-around">
-          <TopMenu />
-          <div>Hello</div>
-          <Link to="/login">LoginPage</Link>
-
-          <ContentList />
-        </Grid>
-      </MuiThemeProvider>
+      <Grid container alignItems="center" justify="space-around">
+        <TopMenu />
+        <ContentList />
+      </Grid>
     );
   }
 }

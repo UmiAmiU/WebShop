@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Grid } from "@material-ui/core";
+import PropTypes from "prop-types";
 import CatalogItem from "../../redux/containers/CatalogItem";
-import data from "../../goods";
 
 class ContentList extends Component {
   render() {
+    const { goods } = this.props;
+
     return (
       <Grid
         container
@@ -13,14 +15,24 @@ class ContentList extends Component {
         alignItems="baseline"
         spacing={16}
       >
-        {data.map((value, index) => (
-          <Grid key={index} item>
-            <CatalogItem data={value} />
-          </Grid>
-        ))}
+        {goods.reduce((items, category) => {
+          return [
+            ...items,
+            ...category.products.map((elem, index) => (
+              <Grid key={index} item>
+                <CatalogItem data={JSON.parse(elem)} />
+              </Grid>
+            ))
+          ];
+        }, [])}
       </Grid>
     );
   }
 }
+
+ContentList.propTypes = {
+  getGoods: PropTypes.func,
+  goods: PropTypes.arrayOf(PropTypes.object)
+};
 
 export default ContentList;

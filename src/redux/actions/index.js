@@ -39,6 +39,20 @@ export const fetchGoodsError = error => ({
   type: "FETCH_GOODS_ERROR"
 });
 
+export const addItemStart = () => ({
+  type: "ADD_ITEM_START"
+});
+
+export const addItemSuccess = data => ({
+  data,
+  type: "ADD_ITEM_SUCCESS"
+});
+
+export const addItemError = error => ({
+  error,
+  type: "ADD_ITEM_ERROR"
+});
+
 export const auth = (id, name) => ({
   id,
   name,

@@ -19,6 +19,7 @@ const Search = props => {
           placeholder="Enter something"
           margin="dense"
           className={classes.searchInput}
+          color="primary"
         />
         <Button>
           <SvgSearchIcon />

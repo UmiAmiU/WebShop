@@ -34,6 +34,7 @@ const LoginForm = ({ handleSubmit, submitting, pristine, classes }) => {
         />
         <Button
           variant="contained"
+          color="secondary"
           type="submit"
           disabled={submitting || pristine}
         >
