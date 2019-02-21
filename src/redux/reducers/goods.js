@@ -4,7 +4,12 @@ const goods = (state = [], action) => {
       return [];
     }
     case "FETCH_GOODS_SUCCESS": {
-      return [...action.data];
+      return [
+        ...action.data.map(elem => ({
+          id: elem.id,
+          products: elem.products.map(item => JSON.parse(item))
+        }))
+      ];
     }
     case "FETCH_GOODS_ERROR": {
       return [];

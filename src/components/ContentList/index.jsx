@@ -4,6 +4,14 @@ import PropTypes from "prop-types";
 import CatalogItem from "../../redux/containers/CatalogItem";
 
 class ContentList extends Component {
+  componentDidMount() {
+    const { goods, getGoods } = this.props;
+
+    if (goods.length === 0) {
+      getGoods();
+    }
+  }
+
   render() {
     const { goods } = this.props;
 
@@ -19,8 +27,8 @@ class ContentList extends Component {
           return [
             ...items,
             ...category.products.map((elem, index) => (
-              <Grid key={index} item>
-                <CatalogItem data={JSON.parse(elem)} />
+              <Grid key={Math.random() + index} item>
+                <CatalogItem data={elem} />
               </Grid>
             ))
           ];
